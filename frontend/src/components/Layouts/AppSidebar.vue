@@ -161,6 +161,7 @@
       v-model="showHelpModal"
       v-model:articles="articles"
       :logo="CRMLogo"
+      :title="brand.name || 'TCRM'"
       :afterSkip="(step) => capture('onboarding_step_skipped_' + step)"
       :afterSkipAll="() => capture('onboarding_steps_skipped')"
       :afterReset="(step) => capture('onboarding_step_reset_' + step)"
@@ -226,6 +227,7 @@ import router from '@/router'
 import { useStorage } from '@vueuse/core'
 import { useDemoData } from '@/composables/demoData'
 import { useCrmOnboarding } from '@/composables/onboarding'
+import { getSettings } from '@/stores/settings'
 import { ref, reactive, computed, markRaw, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -372,6 +374,7 @@ const { user } = sessionStore()
 const { users, isManager } = usersStore()
 const { isOnboardingStepsCompleted, setUp } = useOnboarding('frappecrm')
 const { flushPendingSteps } = useCrmOnboarding()
+const { brand } = getSettings()
 
 // The onboarding composable persists the checklist as a positional
 // [{name, completed}] list, seeds it from the current steps ONLY when empty,
