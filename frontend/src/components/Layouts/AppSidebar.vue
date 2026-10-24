@@ -160,7 +160,8 @@
       v-if="showHelpModal"
       v-model="showHelpModal"
       v-model:articles="articles"
-      :logo="CRMLogo"
+      :logo="brand.logo ? TCRMLogo : CRMLogo"
+      :title="brand.name || 'TCRM'"
       :afterSkip="(step) => capture('onboarding_step_skipped_' + step)"
       :afterSkipAll="() => capture('onboarding_steps_skipped')"
       :afterReset="(step) => capture('onboarding_step_reset_' + step)"
@@ -226,7 +227,8 @@ import router from '@/router'
 import { useStorage } from '@vueuse/core'
 import { useDemoData } from '@/composables/demoData'
 import { useCrmOnboarding } from '@/composables/onboarding'
-import { ref, reactive, computed, markRaw, onMounted, watch } from 'vue'
+import { getSettings } from '@/stores/settings'
+import { ref, reactive, computed, markRaw, onMounted, watch, h } from 'vue'
 import { useRoute } from 'vue-router'
 
 const props = defineProps({
@@ -372,6 +374,13 @@ const { user } = sessionStore()
 const { users, isManager } = usersStore()
 const { isOnboardingStepsCompleted, setUp } = useOnboarding('frappecrm')
 const { flushPendingSteps } = useCrmOnboarding()
+const { brand } = getSettings()
+const TCRMLogo = () =>
+  h('img', {
+    src: brand.logo,
+    class: 'size-8 shrink-0 rounded-4 object-contain',
+    alt: 'TCRM',
+  })
 
 // The onboarding composable persists the checklist as a positional
 // [{name, completed}] list, seeds it from the current steps ONLY when empty,
@@ -661,7 +670,7 @@ const articles = ref([
     ],
   },
   {
-    title: __('Frappe CRM mobile'),
+    title: __('TCRM mobile'),
     opened: false,
     subArticles: [
       { name: 'mobile-app-installation', title: __('Mobile App Installation') },

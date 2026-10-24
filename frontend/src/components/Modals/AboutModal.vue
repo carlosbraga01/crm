@@ -6,7 +6,8 @@
           <div class="flex flex-col items-center">
             <CRMLogo class="mb-3 size-12" />
             <Dialog.Title as-child>
-              <h3 class="text-2xl-semibold text-ink-gray-9">Frappe CRM</h3>
+              <h3 class="text-2xl-semibold text-ink-gray-9">TCRM</h3>
+              <span class="text-sm text-ink-gray-5">by Telecom ME</span>
             </Dialog.Title>
           </div>
         </div>
@@ -56,7 +57,7 @@ let links = [
   },
   {
     label: __('GitHub Repository'),
-    url: 'https://github.com/frappe/crm',
+    url: 'https://github.com/carlosbraga01/crm',
     icon: GitHubIcon,
   },
   {
